@@ -123,7 +123,24 @@ def jscFlavor = 'org.webkit:android-jsc:+'
  */
 def enableHermes = project.ext.react.get("enableHermes", false);
 
+    // using mavenCentral() here gives this error:
+    //Execution failed for task ':app:javaPreCompileDebug'.
+    //> You must specify a URL for a Maven repository.
+repositories {
+    maven {
+        url "https://plugins.gradle.org/m2/"
+//        mavenCentral()
+    }
+}
+
 android {
+    // this also causes
+    // Duplicate class com.facebook.jni.xxx found in modules jetified-fbjni-0.1.0-runtime (com.facebook.fbjni:fbjni:0.1.0) and jetified-fbjni-java-only-0.0.3 (com.facebook.fbjni:fbjni-java-only:0.0.3)
+    // where xxx are 17 different classes
+    dependencies {
+        implementation 'com.facebook.fbjni:fbjni:0.1.0'
+    }
+
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     compileOptions {
@@ -167,6 +184,12 @@ android {
         }
     }
 
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
+
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
@@ -182,6 +205,7 @@ android {
         }
     }
 }
+
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
