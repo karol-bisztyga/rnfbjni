@@ -1,0 +1,12 @@
+{
+  "name": "rnfbjni",
+  "displayName": "rnfbjni",
+  "expo": {
+    "name": "rnfbjni",
+    "slug": "rnfbjni",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}

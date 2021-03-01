@@ -1,2 +1,0 @@
-# rnfbjni
-react native + fbjni
