@@ -11,7 +11,6 @@ import expo.modules.splashscreen.singletons.SplashScreen;
 import expo.modules.splashscreen.SplashScreenImageResizeMode;
 
 import com.facebook.react.ReactInstanceManager;
-import com.facebook.react.turbomodule.core.CallInvokerHolderImpl;
 import com.facebook.react.bridge.ReactContext;
 
 public class MainActivity extends ReactActivity implements ReactInstanceManager.ReactInstanceEventListener {
@@ -60,9 +59,6 @@ public class MainActivity extends ReactActivity implements ReactInstanceManager.
 
     @Override
     public void onReactContextInitialized(ReactContext context) {
-        CallInvokerHolderImpl holder = (CallInvokerHolderImpl)context.getCatalystInstance().getJSCallInvokerHolder();
-        install(context.getJavaScriptContextHolder().get());
+        new MyHybrid().doIt(context);
     }
-
-    public native void install(long jsContextNativePointer);
 }

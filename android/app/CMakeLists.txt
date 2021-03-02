@@ -31,18 +31,24 @@ include_directories(
         ../../node_modules/react-native/React/Base
         ../../node_modules/react-native/ReactCommon
         ../../node_modules/react-native/ReactCommon/jsi
+        ../../node_modules/react-native/ReactCommon/callinvoker
+        ../../node_modules/react-native/ReactAndroid/src/main/java/com/facebook/react/turbomodule/core/jni/ReactCommon
+        ../../node_modules/react-native/ReactCommon/turbomodule/core
+        ../../node_modules/react-native/ReactCommon/turbomodule
         ./src/cpp/
 )
 
 add_library( # Sets the name of the library.
         ${PACKAGE_NAME}
-
         # Sets the library as a shared library.
         SHARED
-
         # Provides a relative path to your source file(s).
         ../../node_modules/react-native/ReactCommon/jsi/jsi/jsi.cpp
-        ./src/cpp/sample.cpp
+        ../../node_modules/react-native/ReactAndroid/src/main/java/com/facebook/react/turbomodule/core/jni/ReactCommon/CallInvokerHolder.cpp
+        ../../node_modules/react-native/ReactCommon/turbomodule/core/TurboModule.cpp
+        ./src/cpp/NativeModules.cpp
+        ./src/cpp/TrimNativeModule.cpp
+        ./src/cpp/jsiInstaller.cpp
         )
 
 target_link_libraries(${PACKAGE_NAME}

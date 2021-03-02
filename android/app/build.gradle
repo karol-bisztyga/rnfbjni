@@ -137,12 +137,11 @@ android {
     buildFeatures {
         prefab true
     }
-    // this also causes
-    // Duplicate class com.facebook.jni.xxx found in modules jetified-fbjni-0.1.0-runtime (com.facebook.fbjni:fbjni:0.1.0) and jetified-fbjni-java-only-0.0.3 (com.facebook.fbjni:fbjni-java-only:0.0.3)
-    // where xxx are 17 different classes
+
 //    dependencies {
 //        implementation 'com.facebook.fbjni:fbjni:0.1.0'
 //    }
+
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     compileOptions {
@@ -220,7 +219,9 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
-    implementation "com.facebook.react:react-native:+"  // From node_modules
+    implementation("com.facebook.react:react-native:+") {
+        exclude group:'com.facebook.fbjni'
+    } // From node_modules
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
