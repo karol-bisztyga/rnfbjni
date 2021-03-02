@@ -134,13 +134,15 @@ repositories {
 }
 
 android {
+    buildFeatures {
+        prefab true
+    }
     // this also causes
     // Duplicate class com.facebook.jni.xxx found in modules jetified-fbjni-0.1.0-runtime (com.facebook.fbjni:fbjni:0.1.0) and jetified-fbjni-java-only-0.0.3 (com.facebook.fbjni:fbjni-java-only:0.0.3)
     // where xxx are 17 different classes
-    dependencies {
-        implementation 'com.facebook.fbjni:fbjni:0.1.0'
-    }
-
+//    dependencies {
+//        implementation 'com.facebook.fbjni:fbjni:0.1.0'
+//    }
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     compileOptions {
@@ -181,6 +183,14 @@ android {
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        }
+    }
+
+    defaultConfig {
+        externalNativeBuild {
+            cmake {
+                arguments "-DANDROID_STL=c++_shared"
+            }
         }
     }
 

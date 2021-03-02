@@ -10,7 +10,16 @@ import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
 import expo.modules.splashscreen.singletons.SplashScreen;
 import expo.modules.splashscreen.SplashScreenImageResizeMode;
 
-public class MainActivity extends ReactActivity {
+import com.facebook.react.ReactInstanceManager;
+import com.facebook.react.turbomodule.core.CallInvokerHolderImpl;
+import com.facebook.react.bridge.ReactContext;
+
+public class MainActivity extends ReactActivity implements ReactInstanceManager.ReactInstanceEventListener {
+
+    static {
+        System.loadLibrary("my_jni_module");
+    }
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -19,7 +28,17 @@ public class MainActivity extends ReactActivity {
     SplashScreen.show(this, SplashScreenImageResizeMode.CONTAIN, ReactRootView.class, false);
   }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getReactInstanceManager().addReactInstanceEventListener(this);
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        getReactInstanceManager().removeReactInstanceEventListener(this);
+    }
     /**
      * Returns the name of the main component registered from JavaScript.
      * This is used to schedule rendering of the component.
@@ -38,4 +57,12 @@ public class MainActivity extends ReactActivity {
             }
         };
     }
+
+    @Override
+    public void onReactContextInitialized(ReactContext context) {
+        CallInvokerHolderImpl holder = (CallInvokerHolderImpl)context.getCatalystInstance().getJSCallInvokerHolder();
+        install(context.getJavaScriptContextHolder().get());
+    }
+
+    public native void install(long jsContextNativePointer);
 }

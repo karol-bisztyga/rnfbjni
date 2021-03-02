@@ -24,7 +24,15 @@ set(PACKAGE_NAME "my_jni_module")
     #"fbjni_DIR" to a directory containing one of the above files.  If "fbjni"
     #provides a separate development package or SDK, be sure it has been
     #installed.
-#find_package(fbjni REQUIRED CONFIG)
+find_package(fbjni REQUIRED CONFIG)
+
+include_directories(
+        ../../node_modules/react-native/React
+        ../../node_modules/react-native/React/Base
+        ../../node_modules/react-native/ReactCommon
+        ../../node_modules/react-native/ReactCommon/jsi
+        ./src/cpp/
+)
 
 add_library( # Sets the name of the library.
         ${PACKAGE_NAME}
@@ -33,17 +41,21 @@ add_library( # Sets the name of the library.
         SHARED
 
         # Provides a relative path to your source file(s).
+        ../../node_modules/react-native/ReactCommon/jsi/jsi/jsi.cpp
         ./src/cpp/sample.cpp
         )
 
 target_link_libraries(${PACKAGE_NAME}
-#        fbjni::fbjni
+        fbjni::fbjni
         android
         log
 )
 
-#target_link_libraries(my_jni_module
-#                      android
-#                      log
-#                      fbjni::fbjni
-#)
+
+add_library(
+        turbomodulejsijni
+        # Sets the library as a shared library.
+        SHARED
+        # Provides a relative path to your source file(s).
+        ./src/cpp/empty.cpp
+)
