@@ -123,24 +123,17 @@ def jscFlavor = 'org.webkit:android-jsc:+'
  */
 def enableHermes = project.ext.react.get("enableHermes", false);
 
-    // using mavenCentral() here gives this error:
-    //Execution failed for task ':app:javaPreCompileDebug'.
-    //> You must specify a URL for a Maven repository.
-repositories {
-    maven {
-        url "https://plugins.gradle.org/m2/"
-//        mavenCentral()
-    }
-}
 
 android {
     buildFeatures {
         prefab true
     }
-
-//    dependencies {
-//        implementation 'com.facebook.fbjni:fbjni:0.1.0'
-//    }
+    configurations {
+        all*.exclude module: 'fbjni-java-only'
+    }
+    dependencies {
+        implementation 'com.facebook.fbjni:fbjni:0.1.0'
+    }
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
@@ -219,9 +212,7 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
-    implementation("com.facebook.react:react-native:+") {
-        exclude group:'com.facebook.fbjni'
-    } // From node_modules
+    implementation("com.facebook.react:react-native:+")
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
