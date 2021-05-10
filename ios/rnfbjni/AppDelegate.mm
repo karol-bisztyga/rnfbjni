@@ -11,6 +11,13 @@
 #import <EXSplashScreen/EXSplashScreenService.h>
 #import <UMCore/UMModuleRegistryProvider.h>
 
+#import <React/JSCExecutorFactory.h>
+#import <React/RCTCxxBridgeDelegate.h>
+#import <cxxreact/JSExecutor.h>
+#import <memory>
+
+#import "../../cpp/TrimNativeModule.h"
+
 #if defined(FB_SONARKIT_ENABLED) && __has_include(<FlipperKit/FlipperClient.h>)
 #import <FlipperKit/FlipperClient.h>
 #import <FlipperKitLayoutPlugin/FlipperKitLayoutPlugin.h>
@@ -35,6 +42,12 @@ static void InitializeFlipper(UIApplication *application) {
 @property (nonatomic, strong) UMModuleRegistryAdapter *moduleRegistryAdapter;
 @property (nonatomic, strong) NSDictionary *launchOptions;
 
+@end
+
+#import <ReactCommon/RCTTurboModuleManager.h>
+
+@interface AppDelegate()
+  <RCTCxxBridgeDelegate, RCTTurboModuleManagerDelegate> {}
 @end
 
 @implementation AppDelegate
@@ -106,6 +119,30 @@ static void InitializeFlipper(UIApplication *application) {
  return [RCTLinkingManager application:application
                   continueUserActivity:userActivity
                     restorationHandler:restorationHandler];
+}
+
+using ExecutorFactory = facebook::react::JSCExecutorFactory;
+using Runtime = facebook::jsi::Runtime;
+
+- (std::unique_ptr<ExecutorFactory>)jsExecutorFactoryForBridge
+    :(RCTBridge *)bridge {
+  __weak __typeof(self) weakSelf = self;
+  return std::make_unique<ExecutorFactory>([=](Runtime &rt) {
+    if (!bridge) {
+      return;
+    }
+    __typeof(self) strongSelf = weakSelf;
+    if (strongSelf) {
+      std::shared_ptr<my_namespace::TrimNativeModule> nativeModule =
+        std::make_shared<my_namespace::TrimNativeModule>(bridge.jsCallInvoker);
+      
+      rt.global().setProperty(
+        rt,
+        facebook::jsi::PropNameID::forAscii(rt, "CommCoreModule"),
+        facebook::jsi::Object::createFromHostObject(rt, nativeModule)
+      );
+    }
+  });
 }
 
 @end
