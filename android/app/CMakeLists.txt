@@ -13,32 +13,34 @@ cmake_minimum_required(VERSION 3.4.1)
 set(build_DIR ${CMAKE_SOURCE_DIR}/build)
 set(PACKAGE_NAME "my_jni_module")
 
-    #THIS RESULTS IN AN ERROR:
-    #Could not find a package configuration file provided by "fbjni" with any of
-    #the following names:
-    #
-    #fbjniConfig.cmake
-    #fbjni-config.cmake
-    #
-    #Add the installation prefix of "fbjni" to CMAKE_PREFIX_PATH or set
-    #"fbjni_DIR" to a directory containing one of the above files.  If "fbjni"
-    #provides a separate development package or SDK, be sure it has been
-    #installed.
 find_package(fbjni REQUIRED CONFIG)
 
 include_directories(
-        ../../node_modules/react-native/React
-        ../../node_modules/react-native/React/Base
-        ../../node_modules/react-native/ReactCommon
-        ../../node_modules/react-native/ReactCommon/jsi
-        ../../node_modules/react-native/ReactCommon/callinvoker
-        ../../node_modules/react-native/ReactAndroid/src/main/java/com/facebook/react/turbomodule/core/jni/ReactCommon
-        ../../node_modules/react-native/ReactCommon/turbomodule/core
-        ../../node_modules/react-native/ReactCommon/turbomodule
-        ./src/cpp/
+  ../../node_modules/react-native/React
+  ../../node_modules/react-native/React/Base
+  ../../node_modules/react-native/ReactCommon
+  ../../node_modules/react-native/ReactCommon/jsi
+  ../../node_modules/react-native/ReactCommon/callinvoker
+  ../../node_modules/react-native/ReactAndroid/src/main/java/com/facebook/react/turbomodule/core/jni/ReactCommon
+  ../../node_modules/react-native/ReactCommon/turbomodule/core/
+  # external libs
+  ./build/third-party-ndk/folly
+  ./build/third-party-ndk/glog
+  ./build/third-party-ndk/boost/boost
+  ./build/third-party-ndk/double-conversion
+  # custom cpp
+  ./src/cpp/
 )
 
-add_library( # Sets the name of the library.
+# search for all cpp files in this directory
+file(GLOB ANDROID_NATIVE_CODE "./src/cpp/*.cpp")
+file(GLOB FOLLY "./build/third-party-ndk/folly/folly/**/*.cpp")
+file(GLOB DOUBLE_CONVERSION_SOURCES "./build/third-party-ndk/double-conversion/double-conversion/*.cc")
+file(GLOB GLOG_SOURCES "./build/third-party-ndk/glog/glog-0.3.5/src/*.cc")
+
+# include(${CMAKE_CURRENT_SOURCE_DIR}/build/third-party-ndk/glog/glog-0.3.5/CMakeLists.txt)
+
+add_library(
         ${PACKAGE_NAME}
         # Sets the library as a shared library.
         SHARED
@@ -46,10 +48,21 @@ add_library( # Sets the name of the library.
         ../../node_modules/react-native/ReactCommon/jsi/jsi/jsi.cpp
         ../../node_modules/react-native/ReactAndroid/src/main/java/com/facebook/react/turbomodule/core/jni/ReactCommon/CallInvokerHolder.cpp
         ../../node_modules/react-native/ReactCommon/turbomodule/core/TurboModule.cpp
-        ./src/cpp/NativeModules.cpp
-        ./src/cpp/TrimNativeModule.cpp
-        ./src/cpp/jsiInstaller.cpp
-        )
+
+        # custom cpp code
+        ${ANDROID_NATIVE_CODE}
+)
+
+add_definitions(
+  -DFOLLY_NO_CONFIG=1
+  -DFOLLY_HAVE_CLOCK_GETTIME=1
+  -DFOLLY_HAVE_MEMRCHR=1
+  -DFOLLY_USE_LIBCPP=1
+  -DFOLLY_MOBILE=1
+  -DON_ANDROID
+)
+
+find_library(log-lib log)
 
 target_link_libraries(${PACKAGE_NAME}
         fbjni::fbjni
@@ -57,7 +70,7 @@ target_link_libraries(${PACKAGE_NAME}
         log
 )
 
-
+# add a dummy library which is required by CallInvokerHolderImpl.java
 add_library(
         turbomodulejsijni
         # Sets the library as a shared library.
