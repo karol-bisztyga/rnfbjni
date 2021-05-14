@@ -49,6 +49,26 @@ add_library(
         ../../node_modules/react-native/ReactAndroid/src/main/java/com/facebook/react/turbomodule/core/jni/ReactCommon/CallInvokerHolder.cpp
         ../../node_modules/react-native/ReactCommon/turbomodule/core/TurboModule.cpp
 
+        # folly
+        ./build/third-party-ndk/folly/folly/detail/Futex.cpp
+        ./build/third-party-ndk/folly/folly/synchronization/ParkingLot.cpp
+        ./build/third-party-ndk/folly/folly/lang/SafeAssert.cpp
+        ./build/third-party-ndk/folly/folly/FileUtil.cpp
+        ./build/third-party-ndk/folly/folly/Subprocess.cpp
+        ./build/third-party-ndk/folly/folly/File.cpp
+        ./build/third-party-ndk/folly/folly/Format.cpp
+        ./build/third-party-ndk/folly/folly/Conv.cpp
+        ./build/third-party-ndk/folly/folly/io/IOBuf.cpp
+        ./build/third-party-ndk/folly/folly/memory/detail/MallocImpl.cpp
+        ./build/third-party-ndk/folly/folly/ScopeGuard.cpp
+        ./build/third-party-ndk/folly/folly/hash/SpookyHashV2.cpp
+        ./build/third-party-ndk/folly/folly/io/IOBufQueue.cpp
+        ./build/third-party-ndk/folly/folly/lang/Assume.cpp
+        ./build/third-party-ndk/folly/folly/String.cpp
+
+        # double-conversion
+        ${DOUBLE_CONVERSION_SOURCES}
+
         # custom cpp code
         ${ANDROID_NATIVE_CODE}
 )

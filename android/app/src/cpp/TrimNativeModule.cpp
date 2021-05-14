@@ -6,6 +6,7 @@ namespace my_namespace {
 
 jsi::String TrimNativeModule::nativeTrim(jsi::Runtime &rt, const jsi::String &text) {
   folly::MPMCQueue<int> q;
+  q.write(5);
 
   std::string str = text.utf8(rt);
   if (str.length() > 10)
