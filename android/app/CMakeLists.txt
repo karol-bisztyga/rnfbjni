@@ -13,7 +13,10 @@ cmake_minimum_required(VERSION 3.4.1)
 set(build_DIR ${CMAKE_SOURCE_DIR}/build)
 set(PACKAGE_NAME "my_jni_module")
 
+
 find_package(fbjni REQUIRED CONFIG)
+set(BUILD_TESTING false)
+add_subdirectory(./build/third-party-ndk/glog/glog-0.5.0/)
 
 include_directories(
   ../../node_modules/react-native/React
@@ -37,8 +40,6 @@ file(GLOB ANDROID_NATIVE_CODE "./src/cpp/*.cpp")
 file(GLOB FOLLY "./build/third-party-ndk/folly/folly/**/*.cpp")
 file(GLOB DOUBLE_CONVERSION_SOURCES "./build/third-party-ndk/double-conversion/double-conversion/*.cc")
 file(GLOB GLOG_SOURCES "./build/third-party-ndk/glog/glog-0.3.5/src/*.cc")
-
-# include(${CMAKE_CURRENT_SOURCE_DIR}/build/third-party-ndk/glog/glog-0.3.5/CMakeLists.txt)
 
 add_library(
         ${PACKAGE_NAME}
@@ -65,6 +66,9 @@ add_library(
         ./build/third-party-ndk/folly/folly/io/IOBufQueue.cpp
         ./build/third-party-ndk/folly/folly/lang/Assume.cpp
         ./build/third-party-ndk/folly/folly/String.cpp
+        ./build/third-party-ndk/folly/folly/portability/SysUio.cpp
+        ./build/third-party-ndk/folly/folly/net/NetOps.cpp
+
 
         # double-conversion
         ${DOUBLE_CONVERSION_SOURCES}
@@ -88,6 +92,7 @@ target_link_libraries(${PACKAGE_NAME}
         fbjni::fbjni
         android
         log
+        glog::glog
 )
 
 # add a dummy library which is required by CallInvokerHolderImpl.java

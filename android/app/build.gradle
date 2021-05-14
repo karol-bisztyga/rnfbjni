@@ -190,28 +190,8 @@ task downloadGlog(dependsOn: createNativeDepsDirectories, type: Download) {
 // executed by automake. This way we can avoid dependencies on make/automake
 task prepareGlog(dependsOn: dependenciesPath ? [] : [downloadGlog], type: Copy) {
     from(dependenciesPath ?: tarTree(downloadGlog.dest))
-    include("glog-${GLOG_VERSION}/src/**/*", "glog-${GLOG_VERSION}/CMakeLists.txt")// "Android.mk", "config.h")
+    include("glog-${GLOG_VERSION}/**/*", "glog-${GLOG_VERSION}/CMakeLists.txt", "glog-${GLOG_VERSION}/cmake/*")// "Android.mk", "config.h")
     includeEmptyDirs = false
-    filesMatching(["**/*.h.in"]) {
-        filter(ReplaceTokens, tokens: [
-                ac_cv_have_unistd_h           : "1",
-                ac_cv_have_stdint_h           : "1",
-                ac_cv_have_systypes_h         : "1",
-                ac_cv_have_inttypes_h         : "1",
-                ac_cv_have_libgflags          : "0",
-                ac_google_start_namespace     : "namespace google {",
-                ac_cv_have_uint16_t           : "1",
-                ac_cv_have_u_int16_t          : "1",
-                ac_cv_have___uint16           : "0",
-                ac_google_end_namespace       : "}",
-                ac_cv_have___builtin_expect   : "1",
-                ac_google_namespace           : "google",
-                ac_cv___attribute___noinline  : "__attribute__ ((noinline))",
-                ac_cv___attribute___noreturn  : "__attribute__ ((noreturn))",
-                ac_cv___attribute___printf_4_5: "__attribute__((__format__ (__printf__, 4, 5)))"
-        ])
-        it.path = (it.name - ".in")
-    }
     into("$thirdPartyNdkDir/glog")
 
     doLast {
