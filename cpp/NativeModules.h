@@ -9,7 +9,11 @@
 
 #pragma once
 
+#if ANDROID
 #include <TurboModule.h>
+#else
+#include <ReactCommon/TurboModule.h>
+#endif
 
 namespace facebook {
 namespace react {
