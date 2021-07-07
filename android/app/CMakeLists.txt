@@ -16,7 +16,7 @@ set(PACKAGE_NAME "my_jni_module")
 
 find_package(fbjni REQUIRED CONFIG)
 set(BUILD_TESTING false)
-add_subdirectory(./build/third-party-ndk/glog/glog-0.4.0/)
+add_subdirectory(./build/third-party-ndk/glog/glog-0.5.0/)
 
 include_directories(
   ../../node_modules/react-native/React
