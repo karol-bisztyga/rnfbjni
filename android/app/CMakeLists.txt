@@ -16,7 +16,7 @@ set(PACKAGE_NAME "my_jni_module")
 
 find_package(fbjni REQUIRED CONFIG)
 set(BUILD_TESTING false)
-add_subdirectory(./build/third-party-ndk/glog/glog-0.5.0/)
+add_subdirectory(./build/third-party-ndk/glog/glog-0.4.0/)
 
 include_directories(
   ../../node_modules/react-native/React
@@ -39,7 +39,6 @@ include_directories(
 file(GLOB ANDROID_NATIVE_CODE "./src/cpp/*.cpp")
 file(GLOB FOLLY "./build/third-party-ndk/folly/folly/**/*.cpp")
 file(GLOB DOUBLE_CONVERSION_SOURCES "./build/third-party-ndk/double-conversion/double-conversion/*.cc")
-file(GLOB GLOG_SOURCES "./build/third-party-ndk/glog/glog-0.3.5/src/*.cc")
 
 add_library(
         ${PACKAGE_NAME}
