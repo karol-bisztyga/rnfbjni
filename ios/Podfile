@@ -6,6 +6,9 @@ platform :ios, '11.0'
 
 target 'rnfbjni' do
   use_unimodules!
+  
+  pod 'Proto', :path => '.'
+  
   config = use_native_modules!
 
   use_react_native!(:path => config["reactNativePath"])
