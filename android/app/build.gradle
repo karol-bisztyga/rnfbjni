@@ -1,6 +1,7 @@
 apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
+import org.ajoberstar.grgit.*
 
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
@@ -123,6 +124,35 @@ def jscFlavor = 'org.webkit:android-jsc:+'
  */
 def enableHermes = project.ext.react.get("enableHermes", false);
 
+def customDownloadsDir = System.getenv("REACT_NATIVE_DOWNLOADS_DIR")
+def downloadsDir = customDownloadsDir ? new File(customDownloadsDir) : new File("$buildDir/downloads")
+def thirdPartyNdkDir = new File("$buildDir/third-party-ndk")
+
+task createNativeDepsDirectories {
+    downloadsDir.mkdirs()
+    thirdPartyNdkDir.mkdirs()
+}
+
+task pullSubmodulesGrpc(type:Exec) {
+    workingDir "$thirdPartyNdkDir/grpc"
+    // TODO: checking out here does not work, I think we should do this
+    commandLine 'git', 'checkout', 'v${GRPC_VERSION}'
+    commandLine 'git', 'submodule', 'update', '--init', '--recursive'
+}
+
+task prepareGrpc(dependsOn: pullSubmodulesGrpc) {
+    if (!(new File("$thirdPartyNdkDir/grpc")).exists()) {
+        org.ajoberstar.grgit.Grgit.clone(dir: "$thirdPartyNdkDir/grpc", uri: "https://github.com/grpc/grpc.git")
+    }
+}
+
+task prepareExternalLibs {
+    dependsOn prepareGrpc
+}
+
+afterEvaluate {
+    preBuild.dependsOn(prepareExternalLibs)
+}
 
 android {
     buildFeatures {
@@ -188,6 +218,7 @@ android {
 
     externalNativeBuild {
         cmake {
+            version "3.18.1"
             path "CMakeLists.txt"
         }
     }
