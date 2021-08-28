@@ -1,8 +1,10 @@
 # For more information about using CMake with Android Studio, read the
 # documentation: https://d.android.com/studio/projects/add-native-code.html
+project(fbjni)
+
+set (CMAKE_CXX_STANDARD 14)
 
 # Sets the minimum version of CMake required to build the native library.
-
 cmake_minimum_required(VERSION 3.4.1)
 
 # Creates and names a library, sets it as either STATIC
@@ -12,19 +14,31 @@ cmake_minimum_required(VERSION 3.4.1)
 
 set(build_DIR ${CMAKE_SOURCE_DIR}/build)
 set(PACKAGE_NAME "my_jni_module")
-
-    #THIS RESULTS IN AN ERROR:
-    #Could not find a package configuration file provided by "fbjni" with any of
-    #the following names:
-    #
-    #fbjniConfig.cmake
-    #fbjni-config.cmake
-    #
-    #Add the installation prefix of "fbjni" to CMAKE_PREFIX_PATH or set
-    #"fbjni_DIR" to a directory containing one of the above files.  If "fbjni"
-    #provides a separate development package or SDK, be sure it has been
-    #installed.
 find_package(fbjni REQUIRED CONFIG)
+
+####################################################################################################
+find_program(_PROTOBUF_PROTOC protoc)
+find_program(_GRPC_CPP_PLUGIN_EXECUTABLE grpc_cpp_plugin)
+
+get_filename_component(hw_proto "../../cpp/net/protos/helloworld.proto" ABSOLUTE)
+get_filename_component(hw_proto_path "${hw_proto}" PATH)
+set(hw_proto_srcs "${CMAKE_CURRENT_BINARY_DIR}/helloworld.pb.cc")
+set(hw_proto_hdrs "${CMAKE_CURRENT_BINARY_DIR}/helloworld.pb.h")
+set(hw_grpc_srcs "${CMAKE_CURRENT_BINARY_DIR}/helloworld.grpc.pb.cc")
+set(hw_grpc_hdrs "${CMAKE_CURRENT_BINARY_DIR}/helloworld.grpc.pb.h")
+
+add_custom_command(
+        OUTPUT "${hw_proto_srcs}" "${hw_proto_hdrs}" "${hw_grpc_srcs}" "${hw_grpc_hdrs}"
+        COMMAND ${_PROTOBUF_PROTOC}
+        ARGS --grpc_out "${CMAKE_CURRENT_BINARY_DIR}"
+        --cpp_out "${CMAKE_CURRENT_BINARY_DIR}"
+        -I "${hw_proto_path}"
+        --plugin=protoc-gen-grpc="${_GRPC_CPP_PLUGIN_EXECUTABLE}"
+        "${hw_proto}"
+        DEPENDS "${hw_proto}")
+
+####################################################################################################
+
 
 include_directories(
         ../../node_modules/react-native/React

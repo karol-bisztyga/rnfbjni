@@ -8,6 +8,15 @@ target 'rnfbjni' do
   use_unimodules!
   config = use_native_modules!
 
+  # pod 'gRPC'
+  # pod 'gRPC-C++'
+  # pod '!ProtoCompiler-gRPCCppPlugin'#, :path => '/Users/karolbisztyga/Desktop/workspace/tmp/grpc/src/objective-c/!ProtoCompiler-gRPCCppPlugin.podspec'
+  # pod 'Proto', :path => '.'
+  pod 'gRPC-C++'
+  pod 'gRPC-C++/Protobuf'
+  pod 'Protobuf-C++', '3.15.8'
+  # pod 'Protobuf', '3.15.8'
+
   use_react_native!(:path => config["reactNativePath"])
 
   # Uncomment the code below to enable Flipper.
