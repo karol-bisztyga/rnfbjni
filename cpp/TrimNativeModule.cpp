@@ -1,4 +1,5 @@
 #include "TrimNativeModule.h"
+#include "Logger.h"
 
 namespace my_namespace {
 
@@ -7,6 +8,7 @@ jsi::String TrimNativeModule::nativeTrim(jsi::Runtime &rt, const jsi::String &te
     if (str.length() > 10) {
         str = str.substr(0, 7) + "...";
     }
+    Logger::log("Logger test");
     return jsi::String::createFromUtf8(rt, str);
 }
 

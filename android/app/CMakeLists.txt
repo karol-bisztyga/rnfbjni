@@ -49,6 +49,7 @@ add_library( # Sets the name of the library.
         ../../cpp/NativeModules.cpp
         ../../cpp/TrimNativeModule.cpp
         ../../cpp/jsiInstaller.cpp
+        ./src/cpp/Logger.cpp
         )
 
 target_link_libraries(${PACKAGE_NAME}
