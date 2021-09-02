@@ -16,29 +16,8 @@ set(build_DIR ${CMAKE_SOURCE_DIR}/build)
 set(PACKAGE_NAME "my_jni_module")
 find_package(fbjni REQUIRED CONFIG)
 
-####################################################################################################
-find_program(_PROTOBUF_PROTOC protoc)
-find_program(_GRPC_CPP_PLUGIN_EXECUTABLE grpc_cpp_plugin)
-
-get_filename_component(hw_proto "../../cpp/net/protos/helloworld.proto" ABSOLUTE)
-get_filename_component(hw_proto_path "${hw_proto}" PATH)
-set(hw_proto_srcs "${CMAKE_CURRENT_BINARY_DIR}/helloworld.pb.cc")
-set(hw_proto_hdrs "${CMAKE_CURRENT_BINARY_DIR}/helloworld.pb.h")
-set(hw_grpc_srcs "${CMAKE_CURRENT_BINARY_DIR}/helloworld.grpc.pb.cc")
-set(hw_grpc_hdrs "${CMAKE_CURRENT_BINARY_DIR}/helloworld.grpc.pb.h")
-
-add_custom_command(
-        OUTPUT "${hw_proto_srcs}" "${hw_proto_hdrs}" "${hw_grpc_srcs}" "${hw_grpc_hdrs}"
-        COMMAND ${_PROTOBUF_PROTOC}
-        ARGS --grpc_out "${CMAKE_CURRENT_BINARY_DIR}"
-        --cpp_out "${CMAKE_CURRENT_BINARY_DIR}"
-        -I "${hw_proto_path}"
-        --plugin=protoc-gen-grpc="${_GRPC_CPP_PLUGIN_EXECUTABLE}"
-        "${hw_proto}"
-        DEPENDS "${hw_proto}")
-
-####################################################################################################
-
+set(GRPC_AS_SUBMODULE ON)
+include(grpc.cmake)
 
 include_directories(
         ../../node_modules/react-native/React
@@ -50,6 +29,7 @@ include_directories(
         ../../node_modules/react-native/ReactCommon/turbomodule/core
         ../../node_modules/react-native/ReactCommon/turbomodule
         ../../cpp/
+        ../../cpp/net
 )
 
 add_library( # Sets the name of the library.
@@ -64,12 +44,17 @@ add_library( # Sets the name of the library.
         ../../cpp/TrimNativeModule.cpp
         ../../cpp/jsiInstaller.cpp
         ./src/cpp/Logger.cpp
+        ../../cpp/net/helloworld.grpc.pb.cc
+        ../../cpp/net/helloworld.pb.cc
         )
 
 target_link_libraries(${PACKAGE_NAME}
         fbjni::fbjni
         android
         log
+        ${_REFLECTION}
+        ${_GRPC_GRPCPP}
+        ${_PROTOBUF_LIBPROTOBUF}
 )
 
 

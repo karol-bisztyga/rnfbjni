@@ -6,6 +6,8 @@
 #include "net/helloworld.pb.h"
 #include "net/helloworld.grpc.pb.h"
 
+#include <android/log.h>
+
 using grpc::Channel;
 using grpc::ClientContext;
 using grpc::Status;
@@ -50,13 +52,14 @@ class GreeterClient {
 };
 
 void sendGRPCMessage() {
-  std::string target_str = "localhost:50051";
+  std::string target_str = "10.0.2.2:50051";
   std::string arg_str("--target");
   GreeterClient greeter(
       grpc::CreateChannel(target_str, grpc::InsecureChannelCredentials()));
   std::string user("world");
   std::string reply = greeter.SayHello(user);
   std::cout << "Greeter received: " << reply << std::endl;
+  __android_log_print(ANDROID_LOG_VERBOSE, "COMM", "Greeter received: %s", reply.c_str());
 }
 
 namespace my_namespace {

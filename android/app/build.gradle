@@ -1,6 +1,7 @@
 apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
+import org.ajoberstar.grgit.*
 
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
@@ -123,6 +124,67 @@ def jscFlavor = 'org.webkit:android-jsc:+'
  */
 def enableHermes = project.ext.react.get("enableHermes", false);
 
+def customDownloadsDir = System.getenv("REACT_NATIVE_DOWNLOADS_DIR")
+def downloadsDir = customDownloadsDir ? new File(customDownloadsDir) : new File("$buildDir/downloads")
+def thirdPartyNdkDir = new File("$buildDir/third-party-ndk")
+
+task createNativeDepsDirectories {
+    downloadsDir.mkdirs()
+    thirdPartyNdkDir.mkdirs()
+}
+
+task cloneGrpc {
+    if (!(new File("$thirdPartyNdkDir/grpc")).exists()) {
+        println('clonning grpc...')
+        org.ajoberstar.grgit.Grgit.clone(dir: "$thirdPartyNdkDir/grpc", uri: "https://github.com/grpc/grpc.git")
+        println('grpc cloned!')
+    }
+}
+
+// we want to use specific tag of grpc so it's compatible with our generated files
+task grpcCheckoutTag(type: Exec) {
+    workingDir "$thirdPartyNdkDir/grpc"
+    println('here grpcCheckoutTag ' + (new File("$thirdPartyNdkDir/grpc/.git")).exists())
+    if ((new File("$thirdPartyNdkDir/grpc/.git")).exists()) {
+        commandLine 'git', 'checkout', 'v1.39.1'
+    } else {
+        commandLine "echo", "grpc_skip_checkout_tag"
+    }
+}
+
+// we have to pull submodules to make building grpc possible
+task grpcPullSubmodules(type: Exec) {
+    workingDir "$thirdPartyNdkDir/grpc"
+    println('here grpcPullSubmodules ' + (new File("$thirdPartyNdkDir/grpc/.git")).exists())
+    if ((new File("$thirdPartyNdkDir/grpc/.git")).exists()) {
+        commandLine 'git', 'submodule', 'update', '--init', '--recursive'
+    } else {
+        commandLine "echo", "grpc_skip_pull_submodules"
+    }
+}
+
+// .git directory in the grpc takes a lot of space and after clonning the repo we do not really need it
+task grpcRemoveGit(type: Exec) {
+    workingDir "$thirdPartyNdkDir/grpc"
+    println('here grpcRemoveGit ' + (new File("$thirdPartyNdkDir/grpc/.git")).exists())
+    if ((new File("$thirdPartyNdkDir/grpc/.git")).exists()) {
+        commandLine 'rm', '-rf', '.git'
+    } else {
+        commandLine "echo", "grpc_skip_remove_git"
+    }
+}
+
+task prepareGrpc(dependsOn: [grpcCheckoutTag, grpcPullSubmodules, grpcRemoveGit]) {
+}
+
+task prepareExternalLibs {
+    dependsOn cloneGrpc
+    dependsOn prepareGrpc
+}
+
+afterEvaluate {
+    preBuild.dependsOn(prepareExternalLibs)
+}
 
 android {
     buildFeatures {
@@ -181,6 +243,7 @@ android {
     defaultConfig {
         externalNativeBuild {
             cmake {
+                version "3.18.1"
                 arguments "-DANDROID_STL=c++_shared"
             }
         }
