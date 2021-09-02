@@ -6,7 +6,7 @@
 #include "net/helloworld.pb.h"
 #include "net/helloworld.grpc.pb.h"
 
-#include <android/log.h>
+using my_namespace::Logger;
 
 using grpc::Channel;
 using grpc::ClientContext;
@@ -41,9 +41,8 @@ class GreeterClient {
     if (status.ok()) {
       return reply.message();
     } else {
-      std::cout << status.error_code() << ": " << status.error_message()
-                << std::endl;
-      return "RPC failed";
+      Logger::log(std::to_string(status.error_code()) + ": " + status.error_message());
+      return "RPC failed(see the logs)";
     }
   }
 
@@ -51,15 +50,23 @@ class GreeterClient {
   std::unique_ptr<Greeter::Stub> stub_;
 };
 
+
+// platform specific defines here
+#ifdef __ANDROID__
+#define HOST_ADDRESS "10.0.2.2"
+#else
+#define HOST_ADDRESS "localhost"
+#endif
+
 void sendGRPCMessage() {
-  std::string target_str = "10.0.2.2:50051";
+  std::string target_str = HOST_ADDRESS;
+  target_str += ":50051";
   std::string arg_str("--target");
   GreeterClient greeter(
       grpc::CreateChannel(target_str, grpc::InsecureChannelCredentials()));
   std::string user("world");
   std::string reply = greeter.SayHello(user);
-  std::cout << "Greeter received: " << reply << std::endl;
-  __android_log_print(ANDROID_LOG_VERBOSE, "COMM", "Greeter received: %s", reply.c_str());
+  Logger::log("Greeter received: " + reply);
 }
 
 namespace my_namespace {

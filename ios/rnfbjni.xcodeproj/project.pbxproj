@@ -12,16 +12,16 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		71E2978E26DCE18F00D8294D /* TrimNativeModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71E2978B26DCE18F00D8294D /* TrimNativeModule.cpp */; };
-		71E2978F26DCE18F00D8294D /* NativeModules.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71E2978C26DCE18F00D8294D /* NativeModules.cpp */; };
-		71E2979726DCE1DF00D8294D /* helloworld.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 71E2979626DCE1DF00D8294D /* helloworld.pb.cc */; };
-		71E2979B26DCE1FB00D8294D /* helloworld.grpc.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 71E2979A26DCE1FB00D8294D /* helloworld.grpc.pb.cc */; };
+		7187920526E0D3530014B32C /* TrimNativeModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7187920026E0D3530014B32C /* TrimNativeModule.cpp */; };
+		7187920626E0D3530014B32C /* NativeModules.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7187920426E0D3530014B32C /* NativeModules.cpp */; };
+		7187920C26E0D36B0014B32C /* helloworld.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 7187920A26E0D36B0014B32C /* helloworld.pb.cc */; };
+		7187920D26E0D36B0014B32C /* helloworld.grpc.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 7187920B26E0D36B0014B32C /* helloworld.grpc.pb.cc */; };
+		7187920F26E0D38D0014B32C /* Logger.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7187920E26E0D38D0014B32C /* Logger.mm */; };
 		96905EF65AED1B983A6B3ABC /* libPods-rnfbjni.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-rnfbjni.a */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* rnfbjni.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rnfbjni.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = rnfbjni/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = rnfbjni/AppDelegate.mm; sourceTree = "<group>"; };
@@ -31,14 +31,16 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = rnfbjni/main.m; sourceTree = "<group>"; };
 		58EEBF8E8E6FB1BC6CAF49B5 /* libPods-rnfbjni.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-rnfbjni.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C2E3173556A471DD304B334 /* Pods-rnfbjni.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rnfbjni.debug.xcconfig"; path = "Target Support Files/Pods-rnfbjni/Pods-rnfbjni.debug.xcconfig"; sourceTree = "<group>"; };
-		71E2978A26DCE18F00D8294D /* NativeModules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NativeModules.h; path = ../../cpp/NativeModules.h; sourceTree = "<group>"; };
-		71E2978B26DCE18F00D8294D /* TrimNativeModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TrimNativeModule.cpp; path = ../../cpp/TrimNativeModule.cpp; sourceTree = "<group>"; };
-		71E2978C26DCE18F00D8294D /* NativeModules.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NativeModules.cpp; path = ../../cpp/NativeModules.cpp; sourceTree = "<group>"; };
-		71E2978D26DCE18F00D8294D /* TrimNativeModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TrimNativeModule.h; path = ../../cpp/TrimNativeModule.h; sourceTree = "<group>"; };
-		71E2979626DCE1DF00D8294D /* helloworld.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = helloworld.pb.cc; path = ../../../cpp/net/helloworld.pb.cc; sourceTree = "<group>"; };
-		71E2979826DCE1F200D8294D /* helloworld.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = helloworld.pb.h; path = ../../../cpp/net/helloworld.pb.h; sourceTree = "<group>"; };
-		71E2979926DCE1F200D8294D /* helloworld.grpc.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = helloworld.grpc.pb.h; path = ../../../cpp/net/helloworld.grpc.pb.h; sourceTree = "<group>"; };
-		71E2979A26DCE1FB00D8294D /* helloworld.grpc.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = helloworld.grpc.pb.cc; path = ../../../cpp/net/helloworld.grpc.pb.cc; sourceTree = "<group>"; };
+		7187920026E0D3530014B32C /* TrimNativeModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TrimNativeModule.cpp; path = ../../cpp/TrimNativeModule.cpp; sourceTree = "<group>"; };
+		7187920126E0D3530014B32C /* NativeModules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NativeModules.h; path = ../../cpp/NativeModules.h; sourceTree = "<group>"; };
+		7187920226E0D3530014B32C /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Logger.h; path = ../../cpp/Logger.h; sourceTree = "<group>"; };
+		7187920326E0D3530014B32C /* TrimNativeModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TrimNativeModule.h; path = ../../cpp/TrimNativeModule.h; sourceTree = "<group>"; };
+		7187920426E0D3530014B32C /* NativeModules.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NativeModules.cpp; path = ../../cpp/NativeModules.cpp; sourceTree = "<group>"; };
+		7187920826E0D36A0014B32C /* helloworld.grpc.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = helloworld.grpc.pb.h; path = ../../../cpp/net/helloworld.grpc.pb.h; sourceTree = "<group>"; };
+		7187920926E0D36A0014B32C /* helloworld.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = helloworld.pb.h; path = ../../../cpp/net/helloworld.pb.h; sourceTree = "<group>"; };
+		7187920A26E0D36B0014B32C /* helloworld.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = helloworld.pb.cc; path = ../../../cpp/net/helloworld.pb.cc; sourceTree = "<group>"; };
+		7187920B26E0D36B0014B32C /* helloworld.grpc.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = helloworld.grpc.pb.cc; path = ../../../cpp/net/helloworld.grpc.pb.cc; sourceTree = "<group>"; };
+		7187920E26E0D38D0014B32C /* Logger.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Logger.mm; sourceTree = "<group>"; };
 		7A4D352CD337FB3A3BF06240 /* Pods-rnfbjni.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rnfbjni.release.xcconfig"; path = "Target Support Files/Pods-rnfbjni/Pods-rnfbjni.release.xcconfig"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = rnfbjni/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
@@ -61,9 +63,9 @@
 		13B07FAE1A68108700A75B9A /* rnfbjni */ = {
 			isa = PBXGroup;
 			children = (
-				71E2978826DCE17B00D8294D /* cpp */,
+				7187920E26E0D38D0014B32C /* Logger.mm */,
+				718791FF26E0D3400014B32C /* cpp */,
 				BB2F792B24A3F905000567C9 /* Supporting */,
-				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -85,25 +87,26 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		71E2978826DCE17B00D8294D /* cpp */ = {
+		718791FF26E0D3400014B32C /* cpp */ = {
 			isa = PBXGroup;
 			children = (
-				71E2978C26DCE18F00D8294D /* NativeModules.cpp */,
-				71E2978A26DCE18F00D8294D /* NativeModules.h */,
-				71E2978B26DCE18F00D8294D /* TrimNativeModule.cpp */,
-				71E2978D26DCE18F00D8294D /* TrimNativeModule.h */,
-				71E2978926DCE17F00D8294D /* net */,
+				7187920726E0D3560014B32C /* net */,
+				7187920226E0D3530014B32C /* Logger.h */,
+				7187920426E0D3530014B32C /* NativeModules.cpp */,
+				7187920126E0D3530014B32C /* NativeModules.h */,
+				7187920026E0D3530014B32C /* TrimNativeModule.cpp */,
+				7187920326E0D3530014B32C /* TrimNativeModule.h */,
 			);
 			path = cpp;
 			sourceTree = "<group>";
 		};
-		71E2978926DCE17F00D8294D /* net */ = {
+		7187920726E0D3560014B32C /* net */ = {
 			isa = PBXGroup;
 			children = (
-				71E2979A26DCE1FB00D8294D /* helloworld.grpc.pb.cc */,
-				71E2979926DCE1F200D8294D /* helloworld.grpc.pb.h */,
-				71E2979826DCE1F200D8294D /* helloworld.pb.h */,
-				71E2979626DCE1DF00D8294D /* helloworld.pb.cc */,
+				7187920B26E0D36B0014B32C /* helloworld.grpc.pb.cc */,
+				7187920826E0D36A0014B32C /* helloworld.grpc.pb.h */,
+				7187920A26E0D36B0014B32C /* helloworld.pb.cc */,
+				7187920926E0D36A0014B32C /* helloworld.pb.h */,
 			);
 			path = net;
 			sourceTree = "<group>";
@@ -308,10 +311,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
-				71E2978E26DCE18F00D8294D /* TrimNativeModule.cpp in Sources */,
-				71E2979726DCE1DF00D8294D /* helloworld.pb.cc in Sources */,
-				71E2979B26DCE1FB00D8294D /* helloworld.grpc.pb.cc in Sources */,
-				71E2978F26DCE18F00D8294D /* NativeModules.cpp in Sources */,
+				7187920526E0D3530014B32C /* TrimNativeModule.cpp in Sources */,
+				7187920F26E0D38D0014B32C /* Logger.mm in Sources */,
+				7187920C26E0D36B0014B32C /* helloworld.pb.cc in Sources */,
+				7187920D26E0D36B0014B32C /* helloworld.grpc.pb.cc in Sources */,
+				7187920626E0D3530014B32C /* NativeModules.cpp in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

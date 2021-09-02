@@ -174,7 +174,19 @@ task grpcRemoveGit(type: Exec) {
     }
 }
 
-task prepareGrpc(dependsOn: [grpcCheckoutTag, grpcPullSubmodules, grpcRemoveGit]) {
+// fix errors in iOS builds
+// the error comes from metro, it says: DuplicateError: Duplicated files or mocks
+task fixiOS(type: Exec) {
+    workingDir "$thirdPartyNdkDir/grpc"
+    println('here grpcRemoveGit ' + (new File("$thirdPartyNdkDir/grpc/.git")).exists())
+    if ((new File("$thirdPartyNdkDir/grpc/.git")).exists()) {
+        commandLine 'rm', 'examples/node/package.json'
+    } else {
+        commandLine "echo", "grpc_skip_fix_ios"
+    }
+}
+
+task prepareGrpc(dependsOn: [grpcCheckoutTag, grpcPullSubmodules, grpcRemoveGit, fixiOS]) {
 }
 
 task prepareExternalLibs {
