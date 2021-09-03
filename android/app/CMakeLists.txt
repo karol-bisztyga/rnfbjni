@@ -16,8 +16,7 @@ set(build_DIR ${CMAKE_SOURCE_DIR}/build)
 set(PACKAGE_NAME "my_jni_module")
 find_package(fbjni REQUIRED CONFIG)
 
-set(GRPC_AS_SUBMODULE ON)
-include(grpc.cmake)
+add_subdirectory(./build/third-party-ndk/grpc/ ${CMAKE_CURRENT_BINARY_DIR}/grpc EXCLUDE_FROM_ALL)
 
 include_directories(
         ../../node_modules/react-native/React
@@ -52,9 +51,9 @@ target_link_libraries(${PACKAGE_NAME}
         fbjni::fbjni
         android
         log
-        ${_REFLECTION}
-        ${_GRPC_GRPCPP}
-        ${_PROTOBUF_LIBPROTOBUF}
+        grpc++_reflection
+        grpc++
+        libprotobuf
 )
 
 

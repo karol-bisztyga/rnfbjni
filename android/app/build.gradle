@@ -255,7 +255,6 @@ android {
     defaultConfig {
         externalNativeBuild {
             cmake {
-                version "3.18.1"
                 arguments "-DANDROID_STL=c++_shared"
             }
         }
