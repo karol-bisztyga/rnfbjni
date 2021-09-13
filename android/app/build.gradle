@@ -133,64 +133,86 @@ task createNativeDepsDirectories {
     thirdPartyNdkDir.mkdirs()
 }
 
-task cloneGrpc {
-    if (!(new File("$thirdPartyNdkDir/grpc")).exists()) {
-        println('clonning grpc...')
-        org.ajoberstar.grgit.Grgit.clone(dir: "$thirdPartyNdkDir/grpc", uri: "https://github.com/grpc/grpc.git")
-        println('grpc cloned!')
+def grpcPath = "$thirdPartyNdkDir/grpc"
+
+task checkGrpcVersion {
+    inputs.property("GRPC_VERSION", GRPC_VERSION)
+    def file = new File("$thirdPartyNdkDir/grpc_version")
+    def savedVersion = null
+    if (file.exists()) {
+        savedVersion = file.getText('UTF-8')
+    }
+    if (GRPC_VERSION != savedVersion) {
+        doLast {
+            println("new version of grpc detected: ${GRPC_VERSION}, previous version: ${savedVersion}")
+            file.write("${GRPC_VERSION}")
+            delete grpcPath
+        }
+    }
+}
+
+task grpcClone(dependsOn: checkGrpcVersion) {
+    doLast {
+        if (!(new File(grpcPath)).exists()) {
+            println('cloning grpc...')
+            org.ajoberstar.grgit.Grgit.clone(dir: grpcPath, uri: "https://github.com/grpc/grpc.git")
+            println('grpc cloned!')
+        }
     }
 }
 
 // we want to use specific tag of grpc so it's compatible with our generated files
-task grpcCheckoutTag(type: Exec) {
-    workingDir "$thirdPartyNdkDir/grpc"
-    println('here grpcCheckoutTag ' + (new File("$thirdPartyNdkDir/grpc/.git")).exists())
-    if ((new File("$thirdPartyNdkDir/grpc/.git")).exists()) {
-        commandLine 'git', 'checkout', 'v1.39.1'
-    } else {
-        commandLine "echo", "grpc_skip_checkout_tag"
+task grpcCheckoutTag(dependsOn: grpcClone) {
+    doLast {
+        if ((new File("${grpcPath}/.git")).exists()) {
+            exec {
+                workingDir grpcPath
+                commandLine "git", "checkout", "v${GRPC_VERSION}"
+            }
+        }
     }
 }
 
 // we have to pull submodules to make building grpc possible
-task grpcPullSubmodules(type: Exec) {
-    workingDir "$thirdPartyNdkDir/grpc"
-    println('here grpcPullSubmodules ' + (new File("$thirdPartyNdkDir/grpc/.git")).exists())
-    if ((new File("$thirdPartyNdkDir/grpc/.git")).exists()) {
-        commandLine 'git', 'submodule', 'update', '--init', '--recursive'
-    } else {
-        commandLine "echo", "grpc_skip_pull_submodules"
+task grpcPullSubmodules(dependsOn: grpcCheckoutTag) {
+    doLast {
+      if ((new File("${grpcPath}/.git")).exists()) {
+        exec {
+          workingDir grpcPath
+          commandLine "git", "submodule", "update", "--init", "--recursive"
+        }
+      }
     }
 }
 
-// .git directory in the grpc takes a lot of space and after clonning the repo we do not really need it
-task grpcRemoveGit(type: Exec) {
-    workingDir "$thirdPartyNdkDir/grpc"
-    println('here grpcRemoveGit ' + (new File("$thirdPartyNdkDir/grpc/.git")).exists())
-    if ((new File("$thirdPartyNdkDir/grpc/.git")).exists()) {
-        commandLine 'rm', '-rf', '.git'
-    } else {
-        commandLine "echo", "grpc_skip_remove_git"
+// .git directory in the grpc takes a lot of space and after cloning the repo we do not really need it
+task grpcRemoveGit(dependsOn: grpcPullSubmodules) {
+    doLast {
+        if ((new File("${grpcPath}/.git")).exists()) {
+            exec {
+                workingDir grpcPath
+                commandLine "rm", "-rf", ".git"
+            }
+        }
     }
 }
 
 // fix errors in iOS builds
 // the error comes from metro, it says: DuplicateError: Duplicated files or mocks
-task fixiOS(type: Exec) {
-    workingDir "$thirdPartyNdkDir/grpc"
-    println('here grpcRemoveGit ' + (new File("$thirdPartyNdkDir/grpc/.git")).exists())
-    if ((new File("$thirdPartyNdkDir/grpc/.git")).exists()) {
-        commandLine 'rm', 'examples/node/package.json'
-    } else {
-        commandLine "echo", "grpc_skip_fix_ios"
+task grpcFixiOS(dependsOn: grpcRemoveGit) {
+    doLast {
+        if ((new File("${grpcPath}/examples/node/package.json")).exists()) {
+            exec {
+                workingDir grpcPath
+                commandLine "rm", "examples/node/package.json"
+            }
+        }
     }
 }
 
-task prepareGrpc(dependsOn: [grpcCheckoutTag, grpcPullSubmodules, grpcRemoveGit, fixiOS]) {
-}
+task prepareGrpc(dependsOn: grpcFixiOS) {}
 
 task prepareExternalLibs {
-    dependsOn cloneGrpc
     dependsOn prepareGrpc
 }
 

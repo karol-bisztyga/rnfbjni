@@ -1,6 +1,6 @@
 # For more information about using CMake with Android Studio, read the
 # documentation: https://d.android.com/studio/projects/add-native-code.html
-project(fbjni)
+project(rnfbjni)
 
 set (CMAKE_CXX_STANDARD 14)
 
@@ -51,7 +51,6 @@ target_link_libraries(${PACKAGE_NAME}
         fbjni::fbjni
         android
         log
-        grpc++_reflection
         grpc++
         libprotobuf
 )
