@@ -1,9 +1,13 @@
+PROJECT(rnfbjni C CXX)
+
 # For more information about using CMake with Android Studio, read the
 # documentation: https://d.android.com/studio/projects/add-native-code.html
 
 # Sets the minimum version of CMake required to build the native library.
 
-cmake_minimum_required(VERSION 3.4.1)
+include(FetchContent)
+
+cmake_minimum_required(VERSION 3.18.1)
 
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
@@ -26,6 +30,16 @@ set(PACKAGE_NAME "my_jni_module")
     #installed.
 find_package(fbjni REQUIRED CONFIG)
 
+FetchContent_Declare(Sodium
+  GIT_REPOSITORY https://github.com/robinlinden/libsodium-cmake.git
+)
+set(SODIUM_DISABLE_TESTS ON)
+FetchContent_MakeAvailable(Sodium)
+
+
+set(LIBOPAQUE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../cpp/libopaque-cmake)
+# add_subdirectory(${LIBOPAQUE_PATH})
+
 include_directories(
         ../../node_modules/react-native/React
         ../../node_modules/react-native/React/Base
@@ -36,7 +50,13 @@ include_directories(
         ../../node_modules/react-native/ReactCommon/turbomodule/core
         ../../node_modules/react-native/ReactCommon/turbomodule
         ../../cpp/
+        ${LIBOPAQUE_PATH}/
+        ${LIBOPAQUE_PATH}/aux/
 )
+
+set_source_files_properties(${LIBOPAQUE_PATH}/common.c PROPERTIES LANGUAGE CXX)
+set_source_files_properties(${LIBOPAQUE_PATH}/opaque.c PROPERTIES LANGUAGE CXX)
+set_source_files_properties(${LIBOPAQUE_PATH}/aux/kdf_hkdf_sha256.c PROPERTIES LANGUAGE CXX)
 
 add_library( # Sets the name of the library.
         ${PACKAGE_NAME}
@@ -46,6 +66,11 @@ add_library( # Sets the name of the library.
         ../../node_modules/react-native/ReactCommon/jsi/jsi/jsi.cpp
         ../../node_modules/react-native/ReactAndroid/src/main/java/com/facebook/react/turbomodule/core/jni/ReactCommon/CallInvokerHolder.cpp
         ../../node_modules/react-native/ReactCommon/turbomodule/core/TurboModule.cpp
+
+        ${LIBOPAQUE_PATH}/common.c
+        ${LIBOPAQUE_PATH}/opaque.c
+        ${LIBOPAQUE_PATH}/aux/kdf_hkdf_sha256.c
+
         ../../cpp/NativeModules.cpp
         ../../cpp/TrimNativeModule.cpp
         ../../cpp/jsiInstaller.cpp
@@ -56,6 +81,7 @@ target_link_libraries(${PACKAGE_NAME}
         fbjni::fbjni
         android
         log
+  sodium
 )
 
 
