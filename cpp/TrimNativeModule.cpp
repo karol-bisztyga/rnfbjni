@@ -2,7 +2,6 @@
 #include "Logger.h"
 
 #include "libopaque-cmake/opaque.h"
-#include "sodium/randombytes.h"
 
 namespace my_namespace
 {
@@ -23,16 +22,6 @@ namespace my_namespace
     if (str.length() > 10)
     {
       str = str.substr(0, 7) + "...{"+ std::to_string(envLen) +"}";
-    }
-    for (int i=0;i<5;++i)
-    {
-      uint8_t rnd[32];
-      randombytes(rnd, 32);
-      std::string randStr;
-      for (int j=0;j<32;++j) {
-        randStr += std::to_string((int)rnd[j]) + " ";
-      }
-      str += "["+ randStr +"]";
     }
     Logger::log("Logger test");
     return jsi::String::createFromUtf8(rt, str);

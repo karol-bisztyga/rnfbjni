@@ -1,11 +1,20 @@
 #include <errno.h>
 #include <string.h>
 
-#include "sodium/crypto_auth.h"
-#include "sodium/crypto_kdf.h"
-#include "crypto_kdf_hkdf_sha256.h"
-#include "sodium/randombytes.h"
-#include "sodium/utils.h"
+#ifdef __ANDROID__
+  #include "sodium/crypto_auth.h"
+  #include "sodium/crypto_kdf.h"
+  #include "crypto_kdf_hkdf_sha256.h"
+  #include "sodium/randombytes.h"
+  #include "sodium/utils.h"
+#elif __APPLE__
+  #include <libsodium/crypto_auth.h>
+  #include <libsodium/crypto_kdf.h>
+  #include "crypto_kdf_hkdf_sha256.h"
+  #include <libsodium/randombytes.h>
+  #include <libsodium/utils.h>
+#endif
+
 
 int
 crypto_kdf_hkdf_sha256_extract(

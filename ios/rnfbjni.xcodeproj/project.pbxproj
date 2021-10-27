@@ -12,11 +12,14 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
+		4A6959D6B06D03C60D7932A8 /* libPods-rnfbjni.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E986990FC536038DC8B27CFA /* libPods-rnfbjni.a */; };
+		710145B127295BF00084EB51 /* opaque.c in Sources */ = {isa = PBXBuildFile; fileRef = 710145AE27295BF00084EB51 /* opaque.c */; };
+		710145B227295BF00084EB51 /* common.c in Sources */ = {isa = PBXBuildFile; fileRef = 710145B027295BF00084EB51 /* common.c */; };
+		710145B527295BFC0084EB51 /* kdf_hkdf_sha256.c in Sources */ = {isa = PBXBuildFile; fileRef = 710145B327295BFC0084EB51 /* kdf_hkdf_sha256.c */; };
 		711E0FD926494026003E07E2 /* cpp in Resources */ = {isa = PBXBuildFile; fileRef = 711E0FD826494026003E07E2 /* cpp */; };
 		71ADC3C226E0CEED00646EF8 /* Logger.mm in Sources */ = {isa = PBXBuildFile; fileRef = 71ADC3C126E0CEED00646EF8 /* Logger.mm */; };
 		71C96D7A265E4BA4001B33FA /* NativeModules.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71C96D74265E4BA4001B33FA /* NativeModules.cpp */; };
 		71C96D7B265E4BA4001B33FA /* TrimNativeModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71C96D75265E4BA4001B33FA /* TrimNativeModule.cpp */; };
-		96905EF65AED1B983A6B3ABC /* libPods-rnfbjni.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-rnfbjni.a */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
 /* End PBXBuildFile section */
 
@@ -29,19 +32,26 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = rnfbjni/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = rnfbjni/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = rnfbjni/main.m; sourceTree = "<group>"; };
-		58EEBF8E8E6FB1BC6CAF49B5 /* libPods-rnfbjni.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-rnfbjni.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C2E3173556A471DD304B334 /* Pods-rnfbjni.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rnfbjni.debug.xcconfig"; path = "Target Support Files/Pods-rnfbjni/Pods-rnfbjni.debug.xcconfig"; sourceTree = "<group>"; };
+		7101458127294D460084EB51 /* liblibsodium.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liblibsodium.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		710145AD27295BF00084EB51 /* common.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; name = common.h; path = "../../cpp/libopaque-cmake/common.h"; sourceTree = "<group>"; };
+		710145AE27295BF00084EB51 /* opaque.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = opaque.c; path = "../../cpp/libopaque-cmake/opaque.c"; sourceTree = "<group>"; };
+		710145AF27295BF00084EB51 /* opaque.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; name = opaque.h; path = "../../cpp/libopaque-cmake/opaque.h"; sourceTree = "<group>"; };
+		710145B027295BF00084EB51 /* common.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = common.c; path = "../../cpp/libopaque-cmake/common.c"; sourceTree = "<group>"; };
+		710145B327295BFC0084EB51 /* kdf_hkdf_sha256.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = kdf_hkdf_sha256.c; path = "../../../cpp/libopaque-cmake/aux/kdf_hkdf_sha256.c"; sourceTree = "<group>"; };
+		710145B427295BFC0084EB51 /* crypto_kdf_hkdf_sha256.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; name = crypto_kdf_hkdf_sha256.h; path = "../../../cpp/libopaque-cmake/aux/crypto_kdf_hkdf_sha256.h"; sourceTree = "<group>"; };
 		711E0FD826494026003E07E2 /* cpp */ = {isa = PBXFileReference; lastKnownFileType = folder; name = cpp; path = ../cpp; sourceTree = "<group>"; };
 		71ADC3C126E0CEED00646EF8 /* Logger.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Logger.mm; sourceTree = "<group>"; };
 		71C96D74265E4BA4001B33FA /* NativeModules.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NativeModules.cpp; path = ../cpp/NativeModules.cpp; sourceTree = "<group>"; };
 		71C96D75265E4BA4001B33FA /* TrimNativeModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TrimNativeModule.cpp; path = ../cpp/TrimNativeModule.cpp; sourceTree = "<group>"; };
 		71C96D76265E4BA4001B33FA /* TrimNativeModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TrimNativeModule.h; path = ../cpp/TrimNativeModule.h; sourceTree = "<group>"; };
 		71C96D79265E4BA4001B33FA /* NativeModules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NativeModules.h; path = ../cpp/NativeModules.h; sourceTree = "<group>"; };
-		7A4D352CD337FB3A3BF06240 /* Pods-rnfbjni.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rnfbjni.release.xcconfig"; path = "Target Support Files/Pods-rnfbjni/Pods-rnfbjni.release.xcconfig"; sourceTree = "<group>"; };
+		803EA151715659A836E0E227 /* Pods-rnfbjni.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rnfbjni.debug.xcconfig"; path = "Target Support Files/Pods-rnfbjni/Pods-rnfbjni.debug.xcconfig"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = rnfbjni/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
+		E986990FC536038DC8B27CFA /* libPods-rnfbjni.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-rnfbjni.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		F744CB9663B78D578FE27B8C /* Pods-rnfbjni.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rnfbjni.release.xcconfig"; path = "Target Support Files/Pods-rnfbjni/Pods-rnfbjni.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96905EF65AED1B983A6B3ABC /* libPods-rnfbjni.a in Frameworks */,
+				4A6959D6B06D03C60D7932A8 /* libPods-rnfbjni.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,11 +86,33 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7101458127294D460084EB51 /* liblibsodium.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				58EEBF8E8E6FB1BC6CAF49B5 /* libPods-rnfbjni.a */,
+				E986990FC536038DC8B27CFA /* libPods-rnfbjni.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		710145AB27295BD80084EB51 /* libopaque-cmake */ = {
+			isa = PBXGroup;
+			children = (
+				710145AC27295BE10084EB51 /* aux */,
+				710145B027295BF00084EB51 /* common.c */,
+				710145AD27295BF00084EB51 /* common.h */,
+				710145AE27295BF00084EB51 /* opaque.c */,
+				710145AF27295BF00084EB51 /* opaque.h */,
+			);
+			path = "libopaque-cmake";
+			sourceTree = "<group>";
+		};
+		710145AC27295BE10084EB51 /* aux */ = {
+			isa = PBXGroup;
+			children = (
+				710145B427295BFC0084EB51 /* crypto_kdf_hkdf_sha256.h */,
+				710145B327295BFC0084EB51 /* kdf_hkdf_sha256.c */,
+			);
+			path = aux;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -93,6 +125,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				710145AB27295BD80084EB51 /* libopaque-cmake */,
 				71ADC3C126E0CEED00646EF8 /* Logger.mm */,
 				71C96D74265E4BA4001B33FA /* NativeModules.cpp */,
 				71C96D79265E4BA4001B33FA /* NativeModules.h */,
@@ -129,8 +162,8 @@
 		D65327D7A22EEC0BE12398D9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				6C2E3173556A471DD304B334 /* Pods-rnfbjni.debug.xcconfig */,
-				7A4D352CD337FB3A3BF06240 /* Pods-rnfbjni.release.xcconfig */,
+				803EA151715659A836E0E227 /* Pods-rnfbjni.debug.xcconfig */,
+				F744CB9663B78D578FE27B8C /* Pods-rnfbjni.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -142,13 +175,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "rnfbjni" */;
 			buildPhases = (
-				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
+				83BF500FA92B429F1AE6117D /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
+				51D8A470FD07D37F5A9CBD1D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -220,7 +253,25 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n../node_modules/expo-constants/scripts/get-app-config-ios.sh\n../node_modules/expo-updates/scripts/create-manifest-ios.sh\n";
 		};
-		08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */ = {
+		51D8A470FD07D37F5A9CBD1D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-rnfbjni/Pods-rnfbjni-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-rnfbjni/Pods-rnfbjni-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		83BF500FA92B429F1AE6117D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -240,24 +291,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-rnfbjni/Pods-rnfbjni-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-rnfbjni/Pods-rnfbjni-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -286,7 +319,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				710145B127295BF00084EB51 /* opaque.c in Sources */,
+				710145B227295BF00084EB51 /* common.c in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
+				710145B527295BFC0084EB51 /* kdf_hkdf_sha256.c in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				71C96D7B265E4BA4001B33FA /* TrimNativeModule.cpp in Sources */,
 				71C96D7A265E4BA4001B33FA /* NativeModules.cpp in Sources */,
@@ -311,7 +347,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6C2E3173556A471DD304B334 /* Pods-rnfbjni.debug.xcconfig */;
+			baseConfigurationReference = 803EA151715659A836E0E227 /* Pods-rnfbjni.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -376,6 +412,7 @@
 					"\"$(SRCROOT)/Pods/boost-for-react-native\"",
 					"\"$(SRCROOT)/../node_modules/react-native/ReactCommon\"",
 					"\"$(SRCROOT)/../cpp\"",
+					"\"$(PODS_ROOT)/Headers/Private/libsodium\"",
 				);
 				INFOPLIST_FILE = rnfbjni/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -402,7 +439,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7A4D352CD337FB3A3BF06240 /* Pods-rnfbjni.release.xcconfig */;
+			baseConfigurationReference = F744CB9663B78D578FE27B8C /* Pods-rnfbjni.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -462,6 +499,7 @@
 					"\"$(SRCROOT)/Pods/boost-for-react-native\"",
 					"\"$(SRCROOT)/../node_modules/react-native/ReactCommon\"",
 					"\"$(SRCROOT)/../cpp\"",
+					"\"$(PODS_ROOT)/Headers/Private/libsodium\"",
 				);
 				INFOPLIST_FILE = rnfbjni/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;

@@ -4,11 +4,29 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '11.0'
 
+def append_user_header_search_path(target, path)
+    target.build_configurations.each do |config|
+        # Note that there's a space character after `$(inherited)`.
+        config.build_settings["USER_HEADER_SEARCH_PATHS"] = path
+    end
+end
+
 target 'rnfbjni' do
   use_unimodules!
   config = use_native_modules!
 
+  pod 'libsodium', :git => 'https://github.com/karol-bisztyga/libsodium', :branch => '1.0.18.2'
+
   use_react_native!(:path => config["reactNativePath"])
+  
+  post_install do |installer|
+    installer.pods_project.targets.each do |target|
+      if target.name == "libsodium"
+          system("./setup_libsodium.sh")
+          append_user_header_search_path(target, "${PODS_ROOT}/libsodium/src/libsodium/include ${PODS_ROOT}/libsodium/src/libsodium/include/sodium ${PODS_ROOT}/libsodium/src/libsodium/include/sodium/private")
+      end
+    end
+  end
 
   # Uncomment the code below to enable Flipper.
   #
